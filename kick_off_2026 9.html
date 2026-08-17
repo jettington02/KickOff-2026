@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kick Off 2026</title>
+<style>
+:root{
+  --bg:#0a1628;
+  --panel:#0f1c30;
+  --panel2:#152438;
+  --panel-border:#1e3048;
+  --accent:#00e676;
+  --accent-dim:#00c853;
+  --text:#ffffff;
+  --muted:#8fa3bc;
+  --danger:#ff5252;
+  --gold:#ffd54f;
+  --nav-bg:#0b1524;
+  --highlight:#e8e0d0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,"Roboto",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 90% 70% at 30% 20%,rgba(20,50,90,.45),transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%,rgba(0,80,120,.15),transparent),
+    linear-gradient(180deg,#07101e 0%,#0a1628 40%,#0c1a30 100%);
+}
+button,input,select{font:inherit}
+button{
+  cursor:pointer;border:1px solid #ffffff;border-radius:0;padding:12px 18px;
+  background:#0d1f3c;color:#ffffff;font-weight:700;letter-spacing:.4px;
+  transition:all .18s ease;text-transform:uppercase;font-size:13px;
+}
+button:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,31,60,.5);background:#132a4d}
+button:active{transform:translateY(0)}
+button.secondary{
+  background:rgba(15,28,48,.9);color:#e0eaf5;
+  border:1px solid #2a4060;border-radius:0;
+}
+button.secondary:hover{background:rgba(25,42,68,.95);box-shadow:0 4px 16px rgba(0,0,0,.35)}
+button.danger{background:var(--danger);color:#fff;border-color:var(--danger);border-radius:0}
+button:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;filter:none}
+.container{max-width:1080px;margin:auto;padding:22px 18px}
+.screen{display:none;opacity:0;transition:opacity .35s ease}
+.screen.active{display:block;opacity:1}
+.tab{transition:opacity .28s ease}
+.hero{text-align:center;padding:52px 12px 32px}
+.hero h1{
+  font-size:44px;margin:10px 0 8px;font-weight:800;letter-spacing:-.6px;
+  color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.4);
+}
+.hero p{color:var(--muted);font-size:15px;max-width:440px;margin:0 auto;line-height:1.5}
+.card{
+  background:rgba(15,28,48,.92);
+  border:1px solid rgba(40,65,95,.5);
+  border-radius:6px;padding:18px 20px;margin-bottom:14px;
+  box-shadow:0 10px 32px rgba(0,0,0,.4);
+  backdrop-filter:blur(6px);
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+label{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px;font-weight:600}
+input,select{
+  width:100%;padding:11px 13px;border-radius:3px;
+  border:1px solid #243850;background:rgba(8,16,30,.9);color:#fff;margin-bottom:12px;
+  transition:border-color .15s,box-shadow .15s;
+}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,230,118,.18)}
+h2,h3{margin-top:0;font-weight:700;letter-spacing:-.2px}
+h2{font-size:20px;color:#fff}h3{font-size:14px;color:#c5d4e8;text-transform:uppercase;letter-spacing:.5px}
+.topbar{
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+  flex-wrap:wrap;margin-bottom:14px;padding:14px 18px;
+  background:rgba(11,21,36,.9);border:1px solid rgba(40,65,95,.45);
+  border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,.3);
+}
+.pill{
+  background:rgba(20,35,55,.8);border:1px solid #2a4060;border-radius:3px;
+  padding:7px 13px;color:#e0eaf5;font-size:13px;font-weight:600;
+}
+.stat{display:flex;justify-content:space-between;background:rgba(8,16,30,.7);padding:8px 12px;border-radius:3px;margin:5px 0;border:1px solid #1e3048}
+.bar{height:5px;background:#1a2c42;border-radius:2px;overflow:hidden;margin-bottom:8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-dim),var(--accent));border-radius:2px}
+.nav{
+  display:flex;gap:3px;flex-wrap:wrap;margin-bottom:16px;
+  background:rgba(11,21,36,.85);padding:5px;border-radius:6px;
+  border:1px solid rgba(40,65,95,.4);
+}
+.nav button{
+  background:transparent;color:var(--muted);border-radius:0;padding:10px 16px;
+  font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+}
+.nav button:hover{background:rgba(30,50,75,.6);color:#fff;box-shadow:none;transform:none}
+.nav button.active{
+  background:var(--highlight);color:#0a1628;box-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+.match{
+  background:linear-gradient(165deg,rgba(18,32,52,.95) 0%,rgba(10,20,36,.98) 100%);
+  border:1px solid rgba(40,65,95,.5);border-radius:6px;padding:24px;text-align:center;
+}
+.score{font-size:48px;font-weight:800;margin:14px 0;letter-spacing:3px;color:#fff;text-shadow:0 0 28px rgba(0,230,118,.2)}
+.eventlog{
+  height:220px;overflow:auto;background:rgba(6,12,22,.9);border:1px solid #1e3048;
+  border-radius:4px;padding:12px;text-align:left;font-size:13px;
+}
+.event{padding:8px 4px;border-bottom:1px solid #162638;color:#c0d0e0}
+.event:last-child{border-bottom:0}
+.choice{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:14px}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:10px 8px;border-bottom:1px solid #1e3048;text-align:left;font-size:13px}
+.table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.table tr:hover td{background:rgba(0,230,118,.04)}
+.badge{display:inline-block;padding:3px 8px;border-radius:3px;background:#1a2c42;font-size:11px;font-weight:600}
+.good{color:var(--accent)}.gold{color:var(--gold)}.dangertext{color:var(--danger)}
+.bigstat{
+  text-align:center;background:rgba(8,16,30,.75);border:1px solid #1e3048;
+  border-radius:4px;padding:16px 12px;
+}
+.bigstat strong{font-size:28px;display:block;color:var(--accent);margin-bottom:2px}
+.muted{color:var(--muted)}
+.hidden{display:none!important}
+.tab{
+  opacity:0;
+  transform:translateY(6px);
+  transition:opacity .28s ease, transform .28s ease;
+  display:none;
+}
+.tab.visible{
+  display:block;
+  opacity:1;
+  transform:translateY(0);
+}
+/* Press Conference */
+.press-wrap{max-width:720px;margin:40px auto;padding:0 16px}
+.press-header{text-align:center;margin-bottom:28px}
+.press-header h2{font-size:28px;margin-top:6px;text-transform:none;letter-spacing:-.3px}
+.press-stage{
+  background:rgba(12,22,40,.92);border:1px solid rgba(40,65,95,.5);
+  border-radius:8px;padding:32px 28px;min-height:280px;
+  box-shadow:0 12px 40px rgba(0,0,0,.45);position:relative;
+}
+.press-speaker{
+  text-align:center;font-size:14px;color:var(--muted);margin-bottom:18px;
+  opacity:0;transition:opacity .45s ease;min-height:22px;
+}
+.press-speaker.show{opacity:1}
+.press-question{
+  text-align:center;font-size:22px;font-weight:600;line-height:1.4;
+  color:#fff;margin-bottom:28px;opacity:0;transition:opacity .5s ease,transform .5s ease;
+  transform:translateY(10px);min-height:60px;
+}
+.press-question.show{opacity:1;transform:translateY(0)}
+.press-answers{
+  opacity:0;transition:opacity .4s ease,transform .4s ease;
+  transform:translateY(12px);pointer-events:none;
+}
+.press-answers.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.press-summary{
+  text-align:center;opacity:0;transition:opacity .5s ease;
+}
+.press-summary.show{opacity:1}
+.press-summary p{font-size:16px;margin-bottom:18px;color:#c8d8ea}
+
+.club-logo{
+  width:52px;height:52px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:16px;color:#fff;border:2px solid rgba(255,255,255,.35);
+  box-shadow:0 4px 14px rgba(0,0,0,.35);letter-spacing:-.5px;
+}
+.match-teams-row{
+  display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:8px;
+}
+.match-team-block{text-align:center;min-width:110px}
+.match-team-block .club-name{display:block;margin-top:8px;font-weight:700;font-size:14px}
+.match-vs{font-size:18px;font-weight:800;color:var(--muted);letter-spacing:1px}
+
+.toast{
+  position:fixed;right:16px;bottom:16px;background:rgba(12,22,40,.96);
+  border:1px solid var(--accent);padding:12px 16px;border-radius:4px;
+  box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 18px rgba(0,230,118,.12);
+  font-size:13px;font-weight:500;z-index:100;
+}
+.card h2,.card h3{position:relative;padding-bottom:10px;margin-bottom:12px}
+.card h2::after,.card h3::after{
+  content:"";position:absolute;left:0;bottom:0;width:32px;height:2px;
+  background:var(--accent);border-radius:1px;
+}
+@media(max-width:650px){
+  .hero h1{font-size:30px}.container{padding:12px}.score{font-size:36px}
+  .nav button{padding:9px 12px;font-size:11px}
+}
+/* Title screen */
+#title{
+  min-height:100vh;display:none;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(0,230,118,.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(26,74,138,.25) 0%, transparent 45%),
+    linear-gradient(180deg, #061018 0%, #0a1628 40%, #0d1f3c 100%);
+}
+#title.active{display:flex;flex-direction:column;opacity:1}
+.title-pitch{
+  position:absolute;inset:0;opacity:.07;pointer-events:none;
+  background:
+    linear-gradient(90deg, transparent 0%, transparent 48%, rgba(255,255,255,.4) 49%, rgba(255,255,255,.4) 51%, transparent 52%, transparent 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(255,255,255,.15) 48px, rgba(255,255,255,.15) 50px);
+}
+.title-logo{
+  width:100px;height:100px;border-radius:50%;
+  background:linear-gradient(145deg,#0d1f3c,#1a4a8a);
+  border:3px solid rgba(255,255,255,.85);
+  display:flex;align-items:center;justify-content:center;
+  font-size:48px;margin:0 auto 20px;
+  box-shadow:0 0 40px rgba(0,230,118,.25), 0 12px 40px rgba(0,0,0,.5);
+}
+.title-brand{
+  font-size:52px;font-weight:800;letter-spacing:-1px;margin:0 0 8px;
+  color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.5);
+}
+.title-brand span{color:var(--accent)}
+.title-tag{
+  color:var(--muted);font-size:15px;margin:0 0 36px;letter-spacing:.8px;
+  text-transform:uppercase;font-weight:600;
+}
+.title-play{
+  padding:16px 56px !important;font-size:16px !important;
+  border:2px solid #fff !important;background:#0d1f3c !important;
+  letter-spacing:2px !important;
+}
+.title-play:hover{background:#132a4d !important;box-shadow:0 0 28px rgba(0,230,118,.3) !important}
+.title-foot{margin-top:40px;font-size:12px;color:var(--muted);opacity:.7}
+.trophy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:8px}
+.trophy-card{
+  background:rgba(8,16,30,.8);border:1px solid #2a4060;padding:16px 12px;text-align:center;
+  min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.trophy-card .icon{font-size:36px;margin-bottom:8px;filter:drop-shadow(0 2px 8px rgba(255,215,0,.35))}
+.trophy-card .t-name{font-weight:700;font-size:13px;margin-bottom:4px;color:var(--gold)}
+.trophy-card .t-meta{font-size:11px;color:var(--muted);line-height:1.35}
+.trophy-empty{color:var(--muted);font-size:13px;grid-column:1/-1;padding:12px 0}
+.award-row{
+  display:flex;align-items:center;gap:14px;padding:14px 12px;
+  border-bottom:1px solid #1e3048;opacity:0;transform:translateY(8px);
+  transition:opacity .4s ease, transform .4s ease;
+}
+.award-row.show{opacity:1;transform:translateY(0)}
+.award-row:last-child{border-bottom:none}
+.award-icon{font-size:28px;width:40px;text-align:center;flex-shrink:0}
+.award-body{flex:1;text-align:left}
+.award-label{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
+.award-winner{font-size:16px;font-weight:700;margin-top:2px}
+.award-winner.you{color:var(--gold)}
+.award-meta{font-size:12px;color:var(--muted);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<section id="title" class="screen active">
+  <div class="title-pitch"></div>
+  <div style="position:relative;z-index:1;padding:24px">
+    <div class="title-logo">⚽</div>
+    <h1 class="title-brand">Kick Off <span>2026</span></h1>
+    <p class="title-tag">Your Football Career Starts Here</p>
+    <button class="title-play" onclick="startFromTitle()">Play</button>
+    <div style="margin-top:14px">
+      <button class="secondary" onclick="loadGame()" style="padding:10px 28px">Load Career</button>
+    </div>
+    <p class="title-foot">Build your legend · Train · Transfer · Win</p>
+  </div>
+</section>
+
+<section id="create" class="screen">
+  <div class="hero">
+    <div style="font-size:55px">⚽</div><h1>Kick Off 2026</h1>
+    <p>Create your player and start your journey from academy prospect to superstar.</p>
+  </div>
+  <div class="card">
+    <h2>Create Your Player</h2>
+    <div class="grid">
+      <div><label>Player name</label><input id="name" placeholder="e.g. Jack Smith"></div>
+      <div><label>Age</label><input id="age" type="number" min="16" max="35" value="17"></div>
+      <div><label>Position</label><select id="position"><option>ST</option><option>LW</option><option>RW</option><option>CAM</option><option>CM</option><option>CDM</option><option>LB</option><option>RB</option><option>CB</option><option>GK</option></select></div>
+      <div><label>Preferred foot</label><select id="foot"><option>Right</option><option>Left</option></select></div>
+    </div>
+    <button onclick="goToClubSelect()">Continue</button>
+  </div>
+</section>
+
+<section id="clubSelect" class="screen">
+  <div class="hero">
+    <h1>Choose Your Path</h1>
+    <p>Start at the bottom. Earn your way to the top.</p>
+  </div>
+  <div class="card">
+    <h2>Nationality & Starting Club</h2>
+    <div style="background:rgba(13,31,60,.9);border:1px solid #2a4060;padding:12px 14px;margin-bottom:16px">
+      <p style="margin:0;font-weight:700;color:var(--gold);font-size:13px;text-transform:uppercase;letter-spacing:.5px">Starting restriction</p>
+      <p class="muted" style="margin:6px 0 0;font-size:13px;line-height:1.45">
+        You can <b>only</b> begin at a <b>League One</b> or <b>Championship</b> club.
+        Premier League and European clubs are locked until you get <b>scouted</b> through strong performances.
+      </p>
+    </div>
+    <div class="grid">
+      <div>
+        <label>Nationality</label>
+        <select id="nation">
+          <option>England</option>
+          <option>Scotland</option>
+          <option>Wales</option>
+          <option>Ireland</option>
+          <option>France</option>
+          <option>Spain</option>
+          <option>Portugal</option>
+          <option>Germany</option>
+          <option>Italy</option>
+          <option>Netherlands</option>
+          <option>Belgium</option>
+          <option>Norway</option>
+          <option>Sweden</option>
+          <option>Denmark</option>
+          <option>Poland</option>
+          <option>Croatia</option>
+          <option>Serbia</option>
+          <option>Austria</option>
+          <option>Switzerland</option>
+          <option>Czech Republic</option>
+        </select>
+      </div>
+      <div>
+        <label>Starting club</label>
+        <select id="club"></select>
+      </div>
+    </div>
+    <p class="muted" id="clubLeagueNote" style="margin-bottom:14px"></p>
+    <button onclick="createPlayer()">Start Career</button>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="topbar">
+    <div><h2 id="playerTitle" style="margin:0"></h2><span id="clubTitle" class="muted"></span></div>
+    <div><span class="pill">$<span id="money">0</span>k</span> <span class="pill">OVR <span id="ovr">0</span></span></div>
+  </div>
+  <div class="nav">
+    <button onclick="showTab('home')" class="active">Home</button>
+    <button onclick="showTab('training')">Training</button>
+    <button onclick="showTab('match')">Match</button>
+    <button onclick="showTab('stats')">Stats</button>
+    <button onclick="showTab('career')">Career</button>
+    <button onclick="showTab('transfers')">Transfers</button>
+  </div>
+
+  <div id="home" class="tab visible">
+    <div class="grid">
+      <div class="card"><h3>Season <span id="season"></span></h3><p>League: <b id="leagueName"></b></p><p>Matchday <b id="matchday"></b> of 10</p><p>League position: <b id="positionLeague"></b></p><p>Manager confidence: <b id="confidence"></b>%</p></div>
+      <div class="card"><h3>🧠 Manager</h3><p id="managerMessage"></p><button onclick="showTab('training')">Go to Training</button></div>
+      <div class="card"><h3>📈 Player Development</h3><div id="miniStats"></div></div>
+    </div>
+    <div class="card"><h3>Next Match</h3><div id="nextMatch"></div></div>
+  </div>
+
+  <div id="training" class="tab hidden">
+    <div class="card"><h2>Training</h2><p class="muted">You can train up to <b>2 times</b> per week. Training improves your attributes, but heavy sessions reduce fitness.</p>
+    <p id="trainingsLeft" class="muted" style="margin-bottom:12px"></p>
+    <div class="choice" id="trainButtons">
+      <button onclick="train('pace')">Speed</button><button onclick="train('shooting')">Finishing</button><button onclick="train('passing')">Passing</button><button onclick="train('dribbling')">Dribbling</button><button onclick="train('physical')">Strength</button><button class="secondary" onclick="train('rest')">Rest</button>
+    </div></div>
+    <div class="card"><h3>Attributes</h3><div id="allStats"></div></div>
+  </div>
+
+  <div id="match" class="tab hidden">
+    <div class="card">
+      <h2>Match Day</h2><div id="matchSetup"></div>
+      <div id="matchArea" class="hidden">
+        <div class="match"><div id="matchTeams"></div><div class="score" id="score">0 - 0</div><div class="muted" id="minute">1'</div></div>
+        <div class="eventlog" id="eventlog"></div>
+        <div id="matchChoice" class="choice"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="stats" class="tab hidden">
+    <div class="card"><h2>Season Statistics</h2><div class="grid"><div class="bigstat"><strong id="apps">0</strong>Appearances</div><div class="bigstat"><strong id="goals">0</strong>Goals</div><div class="bigstat"><strong id="assists">0</strong>Assists</div><div class="bigstat"><strong id="rating">0</strong>Avg. Rating</div></div></div>
+    <div class="card"><h3>Attribute Ratings</h3><div id="statsPage"></div></div>
+  </div>
+
+  <div id="career" class="tab hidden">
+    <div class="card"><h2>Career</h2><div id="careerInfo"></div></div>
+    <div class="card">
+      <h3>Trophy Cabinet</h3>
+      <div id="trophyCabinet" class="trophy-grid"></div>
+    </div>
+    <div class="card"><h3>League Table</h3><table class="table"><thead><tr><th>#</th><th>Club</th><th>Pts</th><th>GD</th></tr></thead><tbody id="league"></tbody></table></div>
+  </div>
+
+  <div id="transfers" class="tab hidden">
+    <div class="card">
+      <h2>Current Contract</h2>
+      <p id="currentContractInfo" class="muted" style="margin-bottom:12px"></p>
+      <div id="renegotiateArea"></div>
+    </div>
+    <div class="card">
+      <h2>Scout Interest</h2>
+      <p class="muted">You cannot apply to clubs freely. Strong performances may attract scouts. Offers are uncommon — keep playing well.</p>
+      <p id="transferStatus" class="muted" style="margin:12px 0"></p>
+      <div id="transferList" class="choice"></div>
+      <div id="negotiatePanel" class="hidden" style="margin-top:18px"></div>
+    </div>
+  </div>
+</section>
+
+<section id="press" class="screen">
+  <div class="press-wrap">
+    <div class="press-header">
+      <p class="muted" id="pressProgress">Press Conference</p>
+      <h2 id="pressTitle">Post-Match Interview</h2>
+    </div>
+    <div class="press-stage">
+      <div id="pressSpeaker" class="press-speaker"></div>
+      <div id="pressQuestion" class="press-question"></div>
+      <div id="pressAnswers" class="press-answers choice"></div>
+      <div id="pressSummary" class="press-summary hidden"></div>
+    </div>
+  </div>
+</section>
+
+<section id="awards" class="screen">
+  <div class="press-wrap">
+    <div class="press-header">
+      <p class="muted" id="awardsSubtitle">End of Season</p>
+      <h2 id="awardsTitle">Awards Ceremony</h2>
+    </div>
+    <div class="press-stage">
+      <div id="awardsList"></div>
+      <div style="text-align:center;margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button onclick="finishAwards()">Continue</button>
+        <button class="secondary" onclick="finishAwards()">Skip Ceremony</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+const teams=[
+ // League One (24)
+ "Birmingham City","Wrexham","Wycombe","Stockport","Leyton Orient","Charlton","Reading","Bolton","Blackpool","Huddersfield",
+ "Lincoln City","Barnsley","Northampton","Rotherham","Stevenage","Exeter","Wigan","Mansfield","Peterborough","Crawley",
+ "Bristol Rovers","Cambridge United","Shrewsbury","Burton",
+ // Championship (24)
+ "Leeds United","Burnley","Sheffield United","Sunderland","West Brom","Middlesbrough","Norwich","Coventry","Watford","Millwall",
+ "Preston","Blackburn","QPR","Swansea","Bristol City","Sheffield Wednesday","Stoke City","Cardiff","Hull City","Plymouth",
+ "Derby County","Oxford United","Luton","Portsmouth",
+ // Premier League (20)
+ "Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Crystal Palace","Everton","Fulham","Ipswich",
+ "Leicester","Liverpool","Manchester City","Manchester United","Newcastle","Nottingham Forest","Southampton","Tottenham","West Ham","Wolves",
+ // Europe (scout only)
+ "Real Madrid","Barcelona","Atletico Madrid","Bayern Munich","Borussia Dortmund","Inter","AC Milan","Juventus","Napoli","PSG"
+];
+const clubLeagues={};
+[
+ ["League One",["Birmingham City","Wrexham","Wycombe","Stockport","Leyton Orient","Charlton","Reading","Bolton","Blackpool","Huddersfield","Lincoln City","Barnsley","Northampton","Rotherham","Stevenage","Exeter","Wigan","Mansfield","Peterborough","Crawley","Bristol Rovers","Cambridge United","Shrewsbury","Burton"]],
+ ["Championship",["Leeds United","Burnley","Sheffield United","Sunderland","West Brom","Middlesbrough","Norwich","Coventry","Watford","Millwall","Preston","Blackburn","QPR","Swansea","Bristol City","Sheffield Wednesday","Stoke City","Cardiff","Hull City","Plymouth","Derby County","Oxford United","Luton","Portsmouth"]],
+ ["Premier League",["Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Crystal Palace","Everton","Fulham","Ipswich","Leicester","Liverpool","Manchester City","Manchester United","Newcastle","Nottingham Forest","Southampton","Tottenham","West Ham","Wolves"]],
+ ["La Liga",["Real Madrid","Barcelona","Atletico Madrid"]],
+ ["Bundesliga",["Bayern Munich","Borussia Dortmund"]],
+ ["Serie A",["Inter","AC Milan","Juventus","Napoli"]],
+ ["Ligue 1",["PSG"]]
+].forEach(([lg,list])=>list.forEach(t=>clubLeagues[t]=lg));
+const startingLeagues=["League One","Championship"];
+const clubLogos={
+ "Birmingham City":{abbr:"BIR",bg:"#0000FF"},"Wrexham":{abbr:"WRX",bg:"#A91C1C"},"Wycombe":{abbr:"WYC",bg:"#249F48"},"Stockport":{abbr:"STO",bg:"#E30613"},
+ "Leyton Orient":{abbr:"LEY",bg:"#E30613"},"Charlton":{abbr:"CHA",bg:"#C4122E"},"Reading":{abbr:"REA",bg:"#004494"},"Bolton":{abbr:"BOL",bg:"#1E90FF"},
+ "Blackpool":{abbr:"BPL",bg:"#F68712"},"Huddersfield":{abbr:"HUD",bg:"#0A71B8"},"Lincoln City":{abbr:"LIN",bg:"#E30613"},"Barnsley":{abbr:"BAR",bg:"#E30613"},
+ "Northampton":{abbr:"NOR",bg:"#8B1A1A"},"Rotherham":{abbr:"ROT",bg:"#E30613"},"Stevenage":{abbr:"STE",bg:"#E30613"},"Exeter":{abbr:"EXE",bg:"#E30613"},
+ "Wigan":{abbr:"WIG",bg:"#1D6CB4"},"Mansfield":{abbr:"MAN",bg:"#FDB913"},"Peterborough":{abbr:"PET",bg:"#0D5C2E"},"Crawley":{abbr:"CRA",bg:"#E30613"},
+ "Bristol Rovers":{abbr:"BRR",bg:"#002B5C"},"Cambridge United":{abbr:"CAM",bg:"#FDB913"},"Shrewsbury":{abbr:"SHR",bg:"#1A3A6E"},"Burton":{abbr:"BUR",bg:"#FDB913"},
+ "Leeds United":{abbr:"LEE",bg:"#FFCD00"},"Burnley":{abbr:"BUR",bg:"#6C1D45"},"Sheffield United":{abbr:"SHU",bg:"#EE2737"},"Sunderland":{abbr:"SUN",bg:"#EB172B"},
+ "West Brom":{abbr:"WBA",bg:"#122F67"},"Middlesbrough":{abbr:"MID",bg:"#E10600"},"Norwich":{abbr:"NOR",bg:"#FFF200"},"Coventry":{abbr:"COV",bg:"#77BBFF"},
+ "Watford":{abbr:"WAT",bg:"#FBEE23"},"Millwall":{abbr:"MIL",bg:"#002B5C"},"Preston":{abbr:"PNE",bg:"#002B5C"},"Blackburn":{abbr:"BLB",bg:"#009EE0"},
+ "QPR":{abbr:"QPR",bg:"#1D5BA4"},"Swansea":{abbr:"SWA",bg:"#FFFFFF"},"Bristol City":{abbr:"BRC",bg:"#E30613"},"Sheffield Wednesday":{abbr:"SHW",bg:"#0066B3"},
+ "Stoke City":{abbr:"STK",bg:"#E03A3E"},"Cardiff":{abbr:"CAR",bg:"#0070AD"},"Hull City":{abbr:"HUL",bg:"#F5A12D"},"Plymouth":{abbr:"PLY",bg:"#005CA9"},
+ "Derby County":{abbr:"DER",bg:"#FFFFFF"},"Oxford United":{abbr:"OXF",bg:"#FDB913"},"Luton":{abbr:"LUT",bg:"#F78F1E"},"Portsmouth":{abbr:"POR",bg:"#001489"},
+ "Arsenal":{abbr:"ARS",bg:"#EF0107"},"Aston Villa":{abbr:"AVL",bg:"#670E36"},"Bournemouth":{abbr:"BOU",bg:"#DA291C"},"Brentford":{abbr:"BRE",bg:"#E30613"},
+ "Brighton":{abbr:"BHA",bg:"#0057B8"},"Chelsea":{abbr:"CHE",bg:"#034694"},"Crystal Palace":{abbr:"CRY",bg:"#1B458F"},"Everton":{abbr:"EVE",bg:"#003399"},
+ "Fulham":{abbr:"FUL",bg:"#FFFFFF"},"Ipswich":{abbr:"IPS",bg:"#0033A0"},"Leicester":{abbr:"LEI",bg:"#003090"},"Liverpool":{abbr:"LIV",bg:"#C8102E"},
+ "Manchester City":{abbr:"MCI",bg:"#6CABDD"},"Manchester United":{abbr:"MUN",bg:"#DA291C"},"Newcastle":{abbr:"NEW",bg:"#241F20"},"Nottingham Forest":{abbr:"NFO",bg:"#DD0000"},
+ "Southampton":{abbr:"SOU",bg:"#D71920"},"Tottenham":{abbr:"TOT",bg:"#132257"},"West Ham":{abbr:"WHU",bg:"#7A263A"},"Wolves":{abbr:"WOL",bg:"#FDB913"},
+ "Real Madrid":{abbr:"RMA",bg:"#FEBE10"},"Barcelona":{abbr:"FCB",bg:"#A50044"},"Atletico Madrid":{abbr:"ATM",bg:"#CB3524"},
+ "Bayern Munich":{abbr:"BAY",bg:"#DC052D"},"Borussia Dortmund":{abbr:"BVB",bg:"#FDE100"},
+ "Inter":{abbr:"INT",bg:"#010E80"},"AC Milan":{abbr:"ACM",bg:"#FB090B"},"Juventus":{abbr:"JUV",bg:"#000000"},"Napoli":{abbr:"NAP",bg:"#12A0D7"},
+ "PSG":{abbr:"PSG",bg:"#004170"}
+};
+let p=null, match=null, toastTimer=null, pendingPlayer=null;
+
+function clubLogoHTML(club){
+ const info=clubLogos[club]||{abbr:club.slice(0,2).toUpperCase(),bg:"#1a4a8a"};
+ return `<div class="club-logo" style="background:${info.bg}" title="${club}">${info.abbr}</div>`;
+}
+function matchupHTML(home,away){
+ return `<div class="match-teams-row">
+  <div class="match-team-block">${clubLogoHTML(home)}<span class="club-name">${home}</span></div>
+  <div class="match-vs">VS</div>
+  <div class="match-team-block">${clubLogoHTML(away)}<span class="club-name">${away}</span></div>
+ </div>`;
+}
+
+function startFromTitle(){
+ const title=document.getElementById("title");
+ const create=document.getElementById("create");
+ if(title){title.style.opacity="0";}
+ setTimeout(()=>{
+  if(title){title.classList.remove("active");title.style.opacity="";}
+  if(create){create.classList.add("active");create.style.opacity="1";}
+ },280);
+}
+
+function goToClubSelect(){
+ const name=document.getElementById("name").value.trim()||"Alex Player";
+ const age=+document.getElementById("age").value||17;
+ const position=document.getElementById("position").value;
+ const foot=document.getElementById("foot").value;
+ pendingPlayer={name,age,position,foot};
+ // Populate starting clubs only (League One + Championship), organised by league
+ const clubSel=document.getElementById("club");
+ clubSel.innerHTML="";
+ startingLeagues.forEach(lg=>{
+  const optgroup=document.createElement("optgroup");
+  optgroup.label=lg;
+  teams.filter(t=>clubLeagues[t]===lg).forEach(t=>{
+   const opt=document.createElement("option");
+   opt.value=t;opt.textContent=t;
+   optgroup.appendChild(opt);
+  });
+  clubSel.appendChild(optgroup);
+ });
+ clubSel.onchange=()=>{
+  const lg=clubLeagues[clubSel.value]||"";
+  const note=document.getElementById("clubLeagueNote");
+  if(note)note.textContent=lg?("Starting league: "+lg+" (lower tier only — Premier League locked until scouted)."):"";
+ };
+ clubSel.onchange();
+ document.getElementById("create").classList.remove("active");
+ const cs=document.getElementById("clubSelect");
+ cs.classList.add("active");
+ cs.style.opacity="1";
+}
+
+function createPlayer(){
+ if(!pendingPlayer){toast("Please create your player first.");return;}
+ const nation=document.getElementById("nation").value||"England";
+ const club=document.getElementById("club").value||"Birmingham City";
+ const league=clubLeagues[club]||"League One";
+ const isGK=pendingPlayer.position==="GK";
+ p={name:pendingPlayer.name,nation,age:pendingPlayer.age,position:pendingPlayer.position,foot:pendingPlayer.foot,club,league,season:1,week:1,money:35,confidence:65,fitness:90,morale:75,apps:0,goals:0,assists:0,ratingTotal:0,careerGoals:0,careerApps:0,trainingsThisWeek:0,transferAppliedThisSeason:false,renegotiatedThisSeason:false,wage:3,contractYears:2,
+ stats:isGK
+  ?{diving:60,handling:58,kicking:52,reflexes:62,positioning:55,physical:55,passing:48,pace:45}
+  :{pace:62,shooting:55,passing:52,dribbling:57,physical:50,tackling:35,positioning:45,vision:50},
+ history:[],standings:{},trophies:[],scoutOffers:[]};
+ initStandings();
+ if(["CB","LB","RB","CDM"].includes(p.position)){p.stats.tackling+=10;p.stats.positioning+=8}
+ if(["ST","LW","RW","CAM"].includes(p.position)){p.stats.shooting+=7;p.stats.dribbling+=5}
+ if(isGK){p.stats.diving+=4;p.stats.reflexes+=3;}
+ pendingPlayer=null;
+ document.getElementById("clubSelect").classList.remove("active");
+ const gameEl=document.getElementById("game");
+ if(gameEl){gameEl.classList.add("active");gameEl.style.opacity="1";}
+ setupMatch();
+ update();
+ showTab("home");
+ toast("Career started! Good luck, "+p.name+"!");
+}
+function overall(){let a=p.stats;let keys=Object.keys(a);return Math.round(keys.reduce((s,k)=>s+a[k],0)/keys.length)}
+function showTab(tab){
+ const tabs=document.querySelectorAll(".tab");
+ const target=document.getElementById(tab);
+ if(!target){console.warn("Tab not found:",tab);return;}
+ // Fade out current visible tabs
+ tabs.forEach(x=>{
+  if(x.classList.contains("visible")){
+   x.style.opacity="0";
+   x.style.transform="translateY(6px)";
+  }
+ });
+ setTimeout(()=>{
+  tabs.forEach(x=>{
+   x.classList.remove("visible");
+   x.classList.add("hidden");
+   x.style.opacity="";
+   x.style.transform="";
+  });
+  target.classList.remove("hidden");
+  void target.offsetWidth;
+  target.classList.add("visible");
+ },160);
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+ const navBtn=[...document.querySelectorAll(".nav button")].find(x=>x.textContent.toLowerCase().includes(tab==="home"?"home":tab));
+ if(navBtn)navBtn.classList.add("active");
+ try{update();}catch(e){console.error("update error",e);}
+}
+function update(){
+ if(!p)return;
+ document.getElementById("playerTitle").textContent=p.name+" • "+p.position;
+ document.getElementById("clubTitle").textContent=p.club+" • "+(p.league||"")+" • "+p.nation;
+ document.getElementById("money").textContent=p.money;
+ document.getElementById("ovr").textContent=overall();
+ document.getElementById("season").textContent=p.season;
+ document.getElementById("matchday").textContent=p.week;
+ const ln=document.getElementById("leagueName");
+ if(ln)ln.textContent=p.league||clubLeagues[p.club]||"—";
+ document.getElementById("positionLeague").textContent=leaguePos();
+ document.getElementById("confidence").textContent=p.confidence;
+ document.getElementById("apps").textContent=p.apps;
+ document.getElementById("goals").textContent=p.goals;
+ document.getElementById("assists").textContent=p.assists;
+ document.getElementById("rating").textContent=p.apps?((p.ratingTotal/p.apps).toFixed(1)):"0.0";
+ document.getElementById("managerMessage").textContent=p.confidence>75?"The manager is very impressed with your performances.":"The manager wants to see more consistency from you.";
+ document.getElementById("nextMatch").innerHTML=matchupHTML(p.club,opponent())+`<p class="muted" style="text-align:center;margin-top:10px">League • Matchday ${p.week}</p>`;
+ const miniKeys=p.position==="GK"
+  ?["diving","handling","reflexes","positioning","kicking"]
+  :["pace","shooting","passing","dribbling","physical"];
+ let mini=miniKeys.filter(k=>p.stats[k]!==undefined).map(k=>statLine(k,p.stats[k])).join("");
+ document.getElementById("miniStats").innerHTML=mini;
+ document.getElementById("allStats").innerHTML=Object.entries(p.stats).map(([k,v])=>statLine(k,v)).join("");
+ document.getElementById("statsPage").innerHTML=Object.entries(p.stats).map(([k,v])=>statLine(k,v)).join("");
+ if(!p.trophies)p.trophies=[];
+ document.getElementById("careerInfo").innerHTML=`<p><b>Age:</b> ${p.age}</p><p><b>Position:</b> ${p.position} • ${p.foot}-footed</p><p><b>Wage:</b> $${p.wage||3}k / week • <b>Contract:</b> ${p.contractYears||2} year(s)</p><p><b>Career apps:</b> ${p.careerApps} • <b>Career goals:</b> ${p.careerGoals}</p><p><b>Trophies:</b> ${p.trophies.length} • <b>Current OVR:</b> ${overall()}</p>`;
+ renderTrophies();
+ // Training limit UI + position-specific buttons
+ if(p.trainingsThisWeek===undefined)p.trainingsThisWeek=0;
+ const left=2-p.trainingsThisWeek;
+ const leftEl=document.getElementById("trainingsLeft");
+ if(leftEl){
+  if(left>0)leftEl.innerHTML=`Training sessions remaining this week: <b class="good">${left}</b>`;
+  else leftEl.innerHTML=`<span class="dangertext">No training sessions left this week.</span> Play a match to advance.`;
+ }
+ const trainBox=document.getElementById("trainButtons");
+ if(trainBox){
+  if(p.position==="GK"){
+   trainBox.innerHTML=`
+    <button onclick="train('diving')">Diving</button>
+    <button onclick="train('handling')">Handling</button>
+    <button onclick="train('reflexes')">Reflexes</button>
+    <button onclick="train('positioning')">Positioning</button>
+    <button onclick="train('kicking')">Distribution</button>
+    <button class="secondary" onclick="train('rest')">Rest</button>`;
+  }else{
+   trainBox.innerHTML=`
+    <button onclick="train('pace')">Speed</button>
+    <button onclick="train('shooting')">Finishing</button>
+    <button onclick="train('passing')">Passing</button>
+    <button onclick="train('dribbling')">Dribbling</button>
+    <button onclick="train('physical')">Strength</button>
+    <button class="secondary" onclick="train('rest')">Rest</button>`;
+  }
+  trainBox.querySelectorAll("button").forEach(b=>{
+   b.disabled=left<=0;
+   b.style.opacity=left<=0?0.5:1;
+   b.style.cursor=left<=0?"not-allowed":"pointer";
+  });
+ }
+ // Training description
+ const trainCard=document.querySelector("#training .card p.muted");
+ if(trainCard&&trainCard.textContent.includes("train up to")){
+  trainCard.innerHTML=p.position==="GK"
+   ?`You can train up to <b>2 times</b> per week. Goalkeeper sessions focus on shot-stopping, handling and distribution.`
+   :`You can train up to <b>2 times</b> per week. Training improves your attributes, but heavy sessions reduce fitness.`;
+ }
+ renderLeague();
+ renderTransfers();
+}
+function statLine(k,v){return `<div class="stat"><span>${cap(k)}</span><b>${v}</b></div><div class="bar"><i style="width:${v}%"></i></div>`}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function leagueTeams(){
+ if(!p)return teams;
+ const lg=p.league||clubLeagues[p.club]||"Premier League";
+ return teams.filter(t=>clubLeagues[t]===lg);
+}
+function initStandings(){
+ if(!p)return;
+ p.standings={};
+ leagueTeams().forEach(t=>{p.standings[t]={pts:0,gd:0,played:0};});
+}
+function opponent(){
+ const lt=leagueTeams();
+ if(!lt.length)return teams[0];
+ const idx=lt.indexOf(p.club);
+ const off=p.week%lt.length||1;
+ let opp=lt[(idx+off)%lt.length];
+ if(opp===p.club)opp=lt[(idx+1)%lt.length];
+ return opp;
+}
+function leaguePos(){
+ if(!p||!p.standings)return 1;
+ const rows=leagueTeams().map(t=>{
+  const s=p.standings[t]||{pts:0,gd:0};
+  return {t,pts:s.pts,gd:s.gd};
+ }).sort((a,b)=>b.pts-a.pts||b.gd-a.gd);
+ const i=rows.findIndex(r=>r.t===p.club);
+ return i<0?rows.length:i+1;
+}
+function renderTrophies(){
+ const el=document.getElementById("trophyCabinet");
+ if(!el||!p)return;
+ if(!p.trophies)p.trophies=[];
+ if(!p.trophies.length){
+  el.innerHTML=`<p class="trophy-empty">No trophies yet. Win your league to lift silverware.</p>`;
+  return;
+ }
+ el.innerHTML=p.trophies.map(t=>`
+  <div class="trophy-card">
+   <div class="icon">🏆</div>
+   <div class="t-name">${t.name}</div>
+   <div class="t-meta">Season ${t.season}<br>${t.club}<br>${t.league}</div>
+  </div>`).join("");
+}
+function renderLeague(){
+ if(!p)return;
+ if(!p.standings)initStandings();
+ const rows=leagueTeams().map(t=>{
+  const s=p.standings[t]||{pts:0,gd:0};
+  return {t,pts:s.pts||0,gd:s.gd||0};
+ }).sort((a,b)=>b.pts-a.pts||b.gd-a.gd);
+ document.getElementById("league").innerHTML=rows.map((x,i)=>`<tr><td>${i+1}</td><td>${x.t}${x.t===p.club?" ★":""}</td><td>${x.pts}</td><td>${x.gd>0?"+":""}${x.gd}</td></tr>`).join("");
+}
+function recordMatchResult(homeClub,awayClub,homeScore,awayScore){
+ if(!p.standings)initStandings();
+ [homeClub,awayClub].forEach(c=>{if(!p.standings[c])p.standings[c]={pts:0,gd:0,played:0};});
+ const hs=homeScore,as=awayScore;
+ p.standings[homeClub].played++;
+ p.standings[awayClub].played++;
+ p.standings[homeClub].gd+=hs-as;
+ p.standings[awayClub].gd+=as-hs;
+ if(hs>as){p.standings[homeClub].pts+=3;}
+ else if(hs<as){p.standings[awayClub].pts+=3;}
+ else{p.standings[homeClub].pts+=1;p.standings[awayClub].pts+=1;}
+ // Simulate other fixtures lightly so table moves
+ leagueTeams().forEach(t=>{
+  if(t===homeClub||t===awayClub)return;
+  if(Math.random()<0.55){
+   const other=leagueTeams().filter(x=>x!==t&&x!==homeClub&&x!==awayClub);
+   if(!other.length)return;
+   const opp=other[Math.floor(Math.random()*other.length)];
+   if(!p.standings[opp])p.standings[opp]={pts:0,gd:0,played:0};
+   const g1=Math.floor(Math.random()*3),g2=Math.floor(Math.random()*3);
+   p.standings[t].played++;p.standings[opp].played++;
+   p.standings[t].gd+=g1-g2;p.standings[opp].gd+=g2-g1;
+   if(g1>g2)p.standings[t].pts+=3;
+   else if(g2>g1)p.standings[opp].pts+=3;
+   else{p.standings[t].pts+=1;p.standings[opp].pts+=1;}
+  }
+ });
+}
+let currentOffer=null; // holds the active negotiation
+
+function generateOffer(club){
+ const ovr=overall();
+ // Base values scale with overall
+ const baseWage=Math.max(2,Math.round(ovr*0.18));
+ const baseBonus=Math.max(5,Math.round(ovr*0.35));
+ const baseYears=ovr>=72?3:ovr>=65?2:1;
+ return {
+  club,
+  wage:baseWage,
+  bonus:baseBonus,
+  years:baseYears,
+  maxWage:Math.round(baseWage*1.6),
+  maxBonus:Math.round(baseBonus*1.8),
+  minYears:1,
+  maxYears:4,
+  attemptsLeft:2,
+  playerWage:baseWage,
+  playerBonus:baseBonus,
+  playerYears:baseYears
+ };
+}
+
+function renderTransfers(){
+ if(!p)return;
+ if(p.renegotiatedThisSeason===undefined)p.renegotiatedThisSeason=false;
+ if(p.wage===undefined)p.wage=3;
+ if(p.contractYears===undefined)p.contractYears=2;
+ if(!p.scoutOffers)p.scoutOffers=[];
+
+ const statusEl=document.getElementById("transferStatus");
+ const listEl=document.getElementById("transferList");
+ const panel=document.getElementById("negotiatePanel");
+ const contractInfo=document.getElementById("currentContractInfo");
+ const renegArea=document.getElementById("renegotiateArea");
+ if(!statusEl||!listEl||!panel)return;
+
+ // Current contract section
+ if(contractInfo){
+  contractInfo.innerHTML=`Club: <b>${p.club}</b> &nbsp;•&nbsp; League: <b>${p.league||"—"}</b><br>Wage: <b>$${p.wage}k / week</b> &nbsp;•&nbsp; Contract: <b>${p.contractYears} year(s)</b>`;
+ }
+ if(renegArea){
+  if(currentOffer && currentOffer.isRenegotiate){
+   renegArea.innerHTML=`
+    <div style="background:rgba(8,16,30,.7);border:1px solid #1e3048;border-radius:4px;padding:16px;margin-top:8px">
+      <h3 style="margin-bottom:12px">Wage Talks with ${p.club}</h3>
+      <div class="grid" style="margin-bottom:14px">
+        <div class="bigstat"><strong>$${currentOffer.playerWage}k</strong>Requested Wage</div>
+        <div class="bigstat"><strong>${currentOffer.playerYears}</strong>Contract Years</div>
+      </div>
+      <p class="muted" style="margin-bottom:12px">Attempts left: <b>${currentOffer.attemptsLeft}</b></p>
+      <div class="choice">
+        <button onclick="acceptRenegotiate()">Accept New Terms</button>
+        <button class="secondary" onclick="counterRenegWage()">Ask Higher Wage</button>
+        <button class="secondary" onclick="counterRenegYears(1)">Longer Contract</button>
+        <button class="secondary" onclick="counterRenegYears(-1)">Shorter Contract</button>
+        <button class="danger" onclick="declineRenegotiate()">End Talks</button>
+      </div>
+    </div>`;
+  }else if(p.renegotiatedThisSeason){
+   renegArea.innerHTML=`<p class="muted">You have already renegotiated your contract this season.</p>`;
+  }else{
+   renegArea.innerHTML=`<button onclick="startRenegotiate()">Renegotiate Wage / Contract</button>`;
+  }
+ }
+
+ // Active negotiation from a scout offer
+ if(currentOffer && !currentOffer.isRenegotiate){
+  statusEl.innerHTML=`Negotiating with <b>${currentOffer.club}</b> (${clubLeagues[currentOffer.club]||""})`;
+  listEl.innerHTML="";
+  panel.classList.remove("hidden");
+  panel.innerHTML=`
+    <div style="background:rgba(8,16,30,.7);border:1px solid #1e3048;border-radius:4px;padding:16px">
+      <h3 style="margin-bottom:12px">Scout Offer — ${currentOffer.club}</h3>
+      <div class="grid" style="margin-bottom:14px">
+        <div class="bigstat"><strong>$${currentOffer.playerWage}k</strong>Weekly Wage</div>
+        <div class="bigstat"><strong>$${currentOffer.playerBonus}k</strong>Signing Bonus</div>
+        <div class="bigstat"><strong>${currentOffer.playerYears}</strong>Year Contract</div>
+      </div>
+      <p class="muted" style="margin-bottom:12px">Negotiation attempts left: <b>${currentOffer.attemptsLeft}</b></p>
+      <div class="choice">
+        <button onclick="acceptOffer()">Accept Offer</button>
+        <button class="secondary" onclick="counterWage()">Ask Higher Wage</button>
+        <button class="secondary" onclick="counterBonus()">Ask Higher Bonus</button>
+        <button class="secondary" onclick="counterYears(1)">Longer Contract</button>
+        <button class="secondary" onclick="counterYears(-1)">Shorter Contract</button>
+        <button class="danger" onclick="declineOffer()">Reject Offer</button>
+      </div>
+    </div>`;
+  return;
+ }
+
+ if(currentOffer && currentOffer.isRenegotiate){
+  statusEl.innerHTML="";
+  listEl.innerHTML="";
+  panel.classList.add("hidden");
+  return;
+ }
+
+ // Show pending scout offers only
+ panel.classList.add("hidden");
+ panel.innerHTML="";
+ if(!p.scoutOffers.length){
+  statusEl.innerHTML=`No clubs are currently scouting you.<br>Play well, raise your overall, and check back after matches.`;
+  listEl.innerHTML="";
+ }else{
+  statusEl.innerHTML=`<b>${p.scoutOffers.length}</b> club(s) have shown interest. Open talks when ready.`;
+  listEl.innerHTML=p.scoutOffers.map(c=>`
+    <button onclick="startNegotiation('${c}')">${c}<br><span style="font-size:10px;font-weight:600;opacity:.8">${clubLeagues[c]||""}</span></button>
+  `).join("");
+ }
+}
+
+// Called after matches — rare scout interest based on performance
+function maybeGenerateScoutOffer(force){
+ if(!p)return;
+ if(!p.scoutOffers)p.scoutOffers=[];
+ const ovr=overall();
+ const avgRating=p.apps?p.ratingTotal/p.apps:6.5;
+ // Base chance very low; rises with OVR, goals, rating
+ let chance=0.03;
+ if(ovr>=62)chance+=0.03;
+ if(ovr>=68)chance+=0.04;
+ if(ovr>=74)chance+=0.05;
+ if(ovr>=80)chance+=0.06;
+ if(p.goals>=5)chance+=0.03;
+ if(p.goals>=10)chance+=0.04;
+ if(avgRating>=7.3)chance+=0.03;
+ if(leaguePos()<=3)chance+=0.02;
+ // Don't spam: max 1 new offer check success rarely, max 2 pending
+ if(p.scoutOffers.length>=2)return;
+ if(!force && Math.random()>chance)return;
+
+ // Pick a higher (or same) league club
+ const leagueOrder=["League One","Championship","Premier League","La Liga","Serie A","Bundesliga","Ligue 1"];
+ const myIdx=leagueOrder.indexOf(p.league);
+ const candidates=teams.filter(t=>{
+  if(t===p.club)return false;
+  if(p.scoutOffers.includes(t))return false;
+  const idx=leagueOrder.indexOf(clubLeagues[t]);
+  // Prefer same league or one step up; rare big jumps if elite OVR
+  if(idx===myIdx||idx===myIdx+1)return true;
+  if(ovr>=78 && idx>=myIdx+2)return Math.random()<0.25;
+  return false;
+ });
+ if(!candidates.length)return;
+ const club=candidates[Math.floor(Math.random()*candidates.length)];
+ p.scoutOffers.push(club);
+ toast("Scout report: "+club+" are interested in you!");
+}
+
+function startRenegotiate(){
+ if(!p||p.renegotiatedThisSeason){toast("You already renegotiated this season.");return}
+ if(currentOffer){toast("Finish current talks first.");return}
+ const ovr=overall();
+ const suggested=Math.max(p.wage+1,Math.round(ovr*0.18));
+ currentOffer={
+  isRenegotiate:true,
+  club:p.club,
+  playerWage:suggested,
+  playerYears:p.contractYears,
+  maxWage:Math.round(suggested*1.5),
+  minYears:1,
+  maxYears:4,
+  attemptsLeft:2
+ };
+ renderTransfers();
+}
+
+function acceptRenegotiate(){
+ if(!currentOffer||!currentOffer.isRenegotiate)return;
+ p.wage=currentOffer.playerWage;
+ p.contractYears=currentOffer.playerYears;
+ p.renegotiatedThisSeason=true;
+ p.confidence=Math.min(100,p.confidence+3);
+ toast(`New deal agreed: $${p.wage}k/week for ${p.contractYears} year(s).`);
+ currentOffer=null;
+ update();
+}
+
+function declineRenegotiate(){
+ if(!currentOffer||!currentOffer.isRenegotiate)return;
+ toast("Wage talks with "+p.club+" have ended.");
+ currentOffer=null;
+ p.renegotiatedThisSeason=true;
+ renderTransfers();
+}
+
+function counterRenegWage(){
+ if(!currentOffer||!currentOffer.isRenegotiate||currentOffer.attemptsLeft<=0)return;
+ const ask=currentOffer.playerWage+Math.max(1,Math.round(currentOffer.playerWage*0.12));
+ if(ask>currentOffer.maxWage){
+  toast("The club will not go any higher.");
+  currentOffer.attemptsLeft--;
+  if(currentOffer.attemptsLeft<=0){toast("Talks have broken down.");currentOffer=null;p.renegotiatedThisSeason=true;}
+  renderTransfers();
+  return;
+ }
+ const ovr=overall();
+ const chance=0.4+(ovr-60)*0.012;
+ if(Math.random()<chance){
+  currentOffer.playerWage=ask;
+  toast("Club agrees to $"+ask+"k per week.");
+ }else{
+  toast("They rejected the higher wage request.");
+ }
+ currentOffer.attemptsLeft--;
+ if(currentOffer.attemptsLeft<=0 && Math.random()<0.35){
+  toast("Negotiations collapsed.");
+  currentOffer=null;
+  p.renegotiatedThisSeason=true;
+ }
+ renderTransfers();
+}
+
+function counterRenegYears(dir){
+ if(!currentOffer||!currentOffer.isRenegotiate||currentOffer.attemptsLeft<=0)return;
+ const newY=currentOffer.playerYears+dir;
+ if(newY<currentOffer.minYears||newY>currentOffer.maxYears){
+  toast("That contract length is not possible.");
+  return;
+ }
+ if(Math.random()<0.55){
+  currentOffer.playerYears=newY;
+  toast("Contract length set to "+newY+" year(s).");
+ }else{
+  toast("They rejected the contract length change.");
+ }
+ currentOffer.attemptsLeft--;
+ renderTransfers();
+}
+
+function startNegotiation(club){
+ if(!p)return;
+ if(!p.scoutOffers||!p.scoutOffers.includes(club)){toast("That club has not scouted you.");return}
+ if(currentOffer){toast("Finish current talks first.");return}
+ currentOffer=generateOffer(club);
+ renderTransfers();
+}
+
+function acceptOffer(){
+ if(!currentOffer)return;
+ const newClub=currentOffer.club;
+ const newLeague=clubLeagues[newClub]||p.league;
+ const switched=newLeague!==p.league;
+ p.club=newClub;
+ p.league=newLeague;
+ p.money+=currentOffer.playerBonus;
+ p.wage=currentOffer.playerWage;
+ p.contractYears=currentOffer.playerYears;
+ p.confidence=Math.min(100,p.confidence+6);
+ if(p.scoutOffers)p.scoutOffers=p.scoutOffers.filter(c=>c!==newClub);
+ if(switched){
+  initStandings();
+  toast(`Deal done! You joined ${newClub} (${newLeague}) on $${currentOffer.playerWage}k/week.`);
+ }else{
+  toast(`Deal done! You joined ${newClub} on $${currentOffer.playerWage}k/week for ${currentOffer.playerYears} year(s).`);
+ }
+ currentOffer=null;
+ update();
+ showTab("home");
+}
+
+function declineOffer(){
+ if(!currentOffer)return;
+ const club=currentOffer.club;
+ toast("You rejected the offer from "+club+".");
+ if(p.scoutOffers)p.scoutOffers=p.scoutOffers.filter(c=>c!==club);
+ currentOffer=null;
+ renderTransfers();
+}
+
+function counterWage(){
+ if(!currentOffer||currentOffer.attemptsLeft<=0)return;
+ const ask=currentOffer.playerWage+Math.max(1,Math.round(currentOffer.playerWage*0.15));
+ if(ask>currentOffer.maxWage){
+  toast("They refuse to go any higher on wages.");
+  currentOffer.attemptsLeft--;
+  if(currentOffer.attemptsLeft<=0){toast("Negotiations have broken down.");currentOffer=null;p.transferAppliedThisSeason=true;}
+  renderTransfers();
+  return;
+ }
+ // Chance they accept the raise
+ const ovr=overall();
+ const chance=0.35+(ovr-60)*0.015;
+ if(Math.random()<chance){
+  currentOffer.playerWage=ask;
+  toast("They agreed to raise your wage to $"+ask+"k.");
+ }else{
+  toast("They rejected the higher wage demand.");
+ }
+ currentOffer.attemptsLeft--;
+ if(currentOffer.attemptsLeft<=0 && Math.random()<0.3){
+  toast("Talks have collapsed.");
+  currentOffer=null;
+  p.transferAppliedThisSeason=true;
+ }
+ renderTransfers();
+}
+
+function counterBonus(){
+ if(!currentOffer||currentOffer.attemptsLeft<=0)return;
+ const ask=currentOffer.playerBonus+Math.max(2,Math.round(currentOffer.playerBonus*0.2));
+ if(ask>currentOffer.maxBonus){
+  toast("They won't increase the signing bonus further.");
+  currentOffer.attemptsLeft--;
+  renderTransfers();
+  return;
+ }
+ const ovr=overall();
+ const chance=0.40+(ovr-60)*0.012;
+ if(Math.random()<chance){
+  currentOffer.playerBonus=ask;
+  toast("Signing bonus increased to $"+ask+"k.");
+ }else{
+  toast("They refused the bigger bonus.");
+ }
+ currentOffer.attemptsLeft--;
+ if(currentOffer.attemptsLeft<=0 && Math.random()<0.3){
+  toast("Negotiations collapsed.");
+  currentOffer=null;
+  p.transferAppliedThisSeason=true;
+ }
+ renderTransfers();
+}
+
+function counterYears(dir){
+ if(!currentOffer||currentOffer.attemptsLeft<=0)return;
+ const newY=currentOffer.playerYears+dir;
+ if(newY<currentOffer.minYears||newY>currentOffer.maxYears){
+  toast("That contract length is not possible.");
+  return;
+ }
+ const ovr=overall();
+ const chance=0.5+(ovr-60)*0.01;
+ if(Math.random()<chance){
+  currentOffer.playerYears=newY;
+  toast("Contract length set to "+newY+" year(s).");
+ }else{
+  toast("They rejected the contract length change.");
+ }
+ currentOffer.attemptsLeft--;
+ renderTransfers();
+}
+function train(type){
+ if(!p||p.week>10){toast("Finish the current season first.");return}
+ if(p.trainingsThisWeek===undefined)p.trainingsThisWeek=0;
+ if(p.trainingsThisWeek>=2){toast("You've already trained 2 times this week. Play a match to advance.");return}
+ if(type==="rest"){
+  p.fitness=Math.min(100,p.fitness+12);p.morale=Math.min(100,p.morale+4);toast("Rest day. Fitness recovered.");
+ }else{
+  const outfield={pace:"pace",shooting:"shooting",passing:"passing",dribbling:"dribbling",physical:"physical"};
+  const gk={diving:"diving",handling:"handling",reflexes:"reflexes",positioning:"positioning",kicking:"kicking"};
+  const map=p.position==="GK"?gk:outfield;
+  let k=map[type]||type;
+  if(p.stats[k]===undefined){toast("That training isn't available for your position.");return;}
+  let gain=Math.random()<.25?2:1;
+  p.stats[k]=Math.min(99,p.stats[k]+gain);
+  p.fitness=Math.max(45,p.fitness-7);
+  p.morale=Math.min(100,p.morale+2);
+  const labels={diving:"Diving",handling:"Handling",reflexes:"Reflexes",positioning:"Positioning",kicking:"Distribution",pace:"Speed",shooting:"Finishing",passing:"Passing",dribbling:"Dribbling",physical:"Strength"};
+  toast((labels[k]||cap(k))+" training complete: +"+gain);
+ }
+ p.trainingsThisWeek++;
+ update();
+ showTab("home");
+}
+const teammateNames=["Harris","Coleman","Wright","Bennett","Foster","Hayes","Reed","Murphy","Price","Shaw","Brooks","Kelly","Morgan","Bailey","Griffin"];
+function randomTeammate(){
+ let n=teammateNames[Math.floor(Math.random()*teammateNames.length)];
+ // avoid same surname as player if possible
+ if(p&&p.name&&p.name.toLowerCase().includes(n.toLowerCase()))n=teammateNames[(teammateNames.indexOf(n)+1)%teammateNames.length];
+ return n;
+}
+
+function startMatch(){
+ if(match){toast("The match is already underway.");return}
+ // First moment later, and rarer overall (~2–3 per match)
+ match={min:0,homeScore:0,awayScore:0,opp:opponent(),ended:false,nextDecisionAt:28+Math.floor(Math.random()*18),waitingForDecision:false,momentsDone:0};
+ document.getElementById("matchSetup").classList.add("hidden");document.getElementById("matchArea").classList.remove("hidden");
+ document.getElementById("matchTeams").innerHTML=matchupHTML(p.club,match.opp);
+ document.getElementById("eventlog").innerHTML="";
+ document.getElementById("matchChoice").innerHTML=`<p class="muted">Match in progress...</p>`;
+ document.getElementById("score").textContent="0 - 0";
+ document.getElementById("minute").textContent="1'";
+ setTimeout(simulateTick,600);
+}
+function simulateTick(){
+ if(!match||match.ended)return;
+ if(match.waitingForDecision)return;
+ if(match.min>=90){finishMatch();return}
+
+ const step=1+Math.floor(Math.random()*3);
+ match.min=Math.min(90,match.min+step);
+ const minEl=document.getElementById("minute");
+ if(minEl)minEl.textContent=match.min+"'";
+
+ const mate=randomTeammate();
+ let log="";
+ const r=Math.random();
+ // Much lower scoring — realistic 0–3 goals typical
+ if(r>0.985){
+  match.homeScore++;p.goals++;p.careerGoals=(p.careerGoals||0)+1;p.ratingTotal+=7;
+  log=`${match.min}' — GOAL! ${p.name} finishes from ${mate}'s pass!`;
+ }else if(r>0.970){
+  match.homeScore++;
+  log=`${match.min}' — GOAL! ${mate} scores for ${p.club}!`;
+ }else if(r>0.955){
+  match.awayScore++;
+  log=`${match.min}' — ${match.opp} score.`;
+ }else if(r>0.90){
+  log=`${match.min}' — ${mate} finds ${p.name} in space.`;
+ }else if(r>0.84){
+  log=`${match.min}' — ${p.name} links up with ${mate}.`;
+ }else if(r>0.78){
+  log=`${match.min}' — ${mate} drives forward down the flank.`;
+ }else if(r>0.72){
+  log=`${match.min}' — ${match.opp} work an attack.`;
+ }else if(r>0.62){
+  log=`${match.min}' — ${mate} and ${p.name} keep possession.`;
+ }else if(r>0.55){
+  log=`${match.min}' — Midfield scrap. ${mate} wins it back.`;
+ }
+
+ if(Math.random()<0.025) log=(log?log+" ":"")+`${match.min}' — Yellow card.`;
+
+ if(log){
+  addLog(log);
+  const scoreEl=document.getElementById("score");
+  if(scoreEl)scoreEl.textContent=match.homeScore+" - "+match.awayScore;
+ }
+
+ // Reached full time this tick — end match (don't wait for another tick)
+ if(match.min>=90){
+  setTimeout(()=>{if(match&&!match.ended)finishMatch();},500);
+  return;
+ }
+
+ // Fewer moments: max 2–3 per match, only before 85'
+ if(match.momentsDone<3 && match.min>=match.nextDecisionAt && match.min<85){
+  presentMoment();
+  match.momentsDone++;
+  match.nextDecisionAt=match.min+25+Math.floor(Math.random()*20);
+  return;
+ }
+
+ const delay=log?650:280;
+ setTimeout(simulateTick,delay);
+}
+
+// Situational in-match moments (position-aware)
+const momentBank={
+ ST:[
+  {s:"You're through on a counter-attack and the ball falls to your feet.",
+   c:[{id:"shoot",t:"Shoot early"},{id:"dribble",t:"Take it round the keeper"},{id:"pass",t:"Square it for a teammate"}]},
+  {s:"A cross is whipped into the box. You rise for the header.",
+   c:[{id:"attack",t:"Attack the near post"},{id:"pass",t:"Flick it on"},{id:"safe",t:"Hold your run"}]},
+  {s:"You receive the ball with your back to goal and a defender tight.",
+   c:[{id:"turn",t:"Spin and shoot"},{id:"pass",t:"Lay it off"},{id:"dribble",t:"Shield and turn"}]},
+  {s:"Penalty! The referee points to the spot.",
+   c:[{id:"shoot",t:"Go for power"},{id:"pass",t:"Place it in the corner"},{id:"safe",t:"Wait for the keeper to move"}]}
+ ],
+ WINGER:[
+  {s:"You're on a break down the wing with space ahead.",
+   c:[{id:"dribble",t:"Drive into the box"},{id:"pass",t:"Cut it back"},{id:"shoot",t:"Shoot from the angle"}]},
+  {s:"You beat your full-back and look up.",
+   c:[{id:"pass",t:"Low cross"},{id:"pass2",t:"Chip to the back post"},{id:"dribble",t:"Take on another defender"}]},
+  {s:"The ball is played into your feet on the touchline under pressure.",
+   c:[{id:"dribble",t:"Beat the man"},{id:"pass",t:"Recycle possession"},{id:"safe",t:"Win a throw-in"}]}
+ ],
+ MID:[
+  {s:"You win the ball in midfield and the break is on.",
+   c:[{id:"pass",t:"Play the killer through ball"},{id:"dribble",t:"Carry it forward"},{id:"safe",t:"Keep it simple"}]},
+  {s:"You're in a pocket of space 25 yards from goal.",
+   c:[{id:"shoot",t:"Have a go"},{id:"pass",t:"Slide a teammate in"},{id:"dribble",t:"Drive into the box"}]},
+  {s:"A dangerous counter is developing against you.",
+   c:[{id:"safe",t:"Foul and take the card"},{id:"pass",t:"Recover and intercept"},{id:"attack",t:"Track the runner"}]}
+ ],
+ DEF:[
+  {s:"A long ball is pumped forward. It's you vs their striker.",
+   c:[{id:"safe",t:"Clear it long"},{id:"pass",t:"Play out from the back"},{id:"attack",t:"Win the aerial duel"}]},
+  {s:"They break into your box. A shot is coming.",
+   c:[{id:"safe",t:"Block the shot"},{id:"attack",t:"Close the angle"},{id:"pass",t:"Shepherd it wide"}]},
+  {s:"You intercept a pass near halfway with space to run into.",
+   c:[{id:"dribble",t:"Drive forward"},{id:"pass",t:"Switch the play"},{id:"safe",t:"Find a simple pass"}]}
+ ],
+ GK:[
+  {s:"A striker is clean through on goal.",
+   c:[{id:"attack",t:"Rush out"},{id:"safe",t:"Stay big on the line"},{id:"pass",t:"Force them wide"}]},
+  {s:"You claim a cross and the counter is on.",
+   c:[{id:"pass",t:"Quick throw"},{id:"pass2",t:"Launch it long"},{id:"safe",t:"Take your time"}]},
+  {s:"A free-kick is lined up from a dangerous range.",
+   c:[{id:"safe",t:"Set the wall"},{id:"attack",t:"Guess the near side"},{id:"pass",t:"Cover the far post"}]}
+ ]
+};
+
+function getMomentPool(){
+ const pos=p.position;
+ if(["ST"].includes(pos))return momentBank.ST;
+ if(["LW","RW"].includes(pos))return momentBank.WINGER;
+ if(["CAM","CM","CDM"].includes(pos))return momentBank.MID;
+ if(["CB","LB","RB"].includes(pos))return momentBank.DEF;
+ if(pos==="GK")return momentBank.GK;
+ return momentBank.MID.concat(momentBank.ST);
+}
+
+function presentMoment(){
+ if(!match)return;
+ match.waitingForDecision=true;
+ const pool=getMomentPool();
+ const moment=pool[Math.floor(Math.random()*pool.length)];
+ match.currentMoment=moment;
+ document.getElementById("matchChoice").innerHTML=`
+  <div style="text-align:left;background:rgba(8,16,30,.75);border:1px solid #1e3048;padding:14px;margin-bottom:4px">
+   <p class="muted" style="margin-bottom:6px">${match.min}' — Moment</p>
+   <p style="font-size:15px;font-weight:600;margin-bottom:12px;line-height:1.4">${moment.s}</p>
+   <div class="choice">
+    ${moment.c.map(ch=>`<button onclick="decision('${ch.id}')">${ch.t}</button>`).join("")}
+   </div>
+  </div>`;
+}
+
+function decision(type){
+ if(!match||!match.waitingForDecision)return;
+ match.waitingForDecision=false;
+ const mate=randomTeammate();
+ let text="", outcome="", paidOff=false;
+ const roll=Math.random();
+
+ if(type==="shoot"||type==="attack"||type==="turn"){
+  if(roll<0.18){match.homeScore++;p.goals++;p.careerGoals=(p.careerGoals||0)+1;p.ratingTotal+=9;text=`${match.min}' — GOAL! Your decision pays off — clinical finish!`;paidOff=true;outcome="Choice paid off";}
+  else if(roll<0.45){text=`${match.min}' — Good strike — saved / just wide.`;p.ratingTotal+=6;outcome="Close, but no goal";}
+  else{text=`${match.min}' — Chance wasted.`;p.ratingTotal+=4;outcome="Didn't come off";}
+ }else if(type==="pass"||type==="pass2"){
+  if(roll<0.20){p.assists++;match.homeScore++;p.ratingTotal+=8;text=`${match.min}' — ASSIST! Your pass finds ${mate} who scores!`;paidOff=true;outcome="Choice paid off";}
+  else if(roll<0.55){text=`${match.min}' — Nice pass to ${mate} — move continues.`;p.ratingTotal+=6;outcome="Solid choice";}
+  else{text=`${match.min}' — Pass to ${mate} is cut out.`;p.ratingTotal+=4;outcome="Didn't come off";}
+ }else if(type==="dribble"){
+  if(roll<0.14){match.homeScore++;p.goals++;p.careerGoals=(p.careerGoals||0)+1;p.ratingTotal+=9;text=`${match.min}' — GOAL! Solo run pays off!`;paidOff=true;outcome="Choice paid off";}
+  else if(roll<0.50){text=`${match.min}' — You beat your man and find ${mate}.`;p.ratingTotal+=7;outcome="Solid choice";}
+  else{text=`${match.min}' — Dispossessed trying to dribble.`;p.ratingTotal+=4;outcome="Didn't come off";}
+ }else if(type==="safe"){
+  text=`${match.min}' — Smart, safe decision. ${mate} recycles possession.`;
+  p.ratingTotal+=6;outcome="Solid choice";paidOff=true;
+ }else{
+  if(roll<0.30){text=`${match.min}' — It works — ${mate} benefits from your choice.`;p.ratingTotal+=7;paidOff=true;outcome="Choice paid off";}
+  else{text=`${match.min}' — Half-chance fizzles out.`;p.ratingTotal+=5;outcome="Didn't come off";}
+ }
+
+ addLog(text);
+ const scoreEl=document.getElementById("score");
+ if(scoreEl)scoreEl.textContent=match.homeScore+" - "+match.awayScore;
+ const outcomeColor=paidOff?"var(--accent)":(outcome==="Didn't come off"?"var(--danger)":"var(--muted)");
+ const choiceEl=document.getElementById("matchChoice");
+ if(choiceEl)choiceEl.innerHTML=`
+  <p style="margin-bottom:6px;font-weight:600;color:${outcomeColor}">${outcome}</p>
+  <p class="muted" style="margin-bottom:10px">${text.replace(match.min+"' — ","")}</p>
+  <p class="muted">Match continues...</p>`;
+ match.currentMoment=null;
+ // If match already at 90 after a late moment, finish instead of simulating more
+ if(match.min>=90){
+  setTimeout(()=>{if(match&&!match.ended)finishMatch();},800);
+ }else{
+  setTimeout(simulateTick,1400);
+ }
+}
+function addLog(t){
+ try{
+  let e=document.createElement("div");e.className="event";e.textContent=t;
+  let box=document.getElementById("eventlog");
+  if(box){box.appendChild(e);box.scrollTop=box.scrollHeight;}
+ }catch(err){console.error(err);}
+}
+function finishMatch(){
+ if(!match||match.ended)return;
+ try{
+  match.ended=true;
+  match.waitingForDecision=false;
+  p.apps++;p.careerApps++;p.fitness=Math.max(35,p.fitness-12);
+  let result=match.homeScore>match.awayScore?"WIN":match.homeScore<match.awayScore?"LOSS":"DRAW";
+  match.result=result;
+  let r=result==="WIN"?8.2:result==="DRAW"?7.0:6.2;r+=Math.random()*.5;p.ratingTotal+=r;
+  p.confidence=Math.max(20,Math.min(100,p.confidence+(result==="WIN"?5:result==="DRAW"?1:-4)));
+  if(result==="WIN")p.money+=3;
+  try{recordMatchResult(p.club,match.opp,match.homeScore,match.awayScore);}catch(e){console.error("standings",e);}
+  addLog(`FULL TIME — ${result}! Match rating: ${r.toFixed(1)}`);
+  const choiceEl=document.getElementById("matchChoice");
+  if(choiceEl)choiceEl.innerHTML=`<p class="muted">Full time. Heading to the press conference...</p>`;
+  setTimeout(()=>{
+   try{startPressConference();}
+   catch(err){
+    console.error(err);
+    // Fallback if press screen fails
+    endWeek();
+   }
+  },900);
+ }catch(err){
+  console.error("finishMatch",err);
+  match.ended=true;
+  endWeek();
+ }
+}
+
+const pressQuestions=[
+ {speaker:"Journalist",q:"How do you feel about the result today?",
+  a:[{t:"I'm really pleased with the performance.",eff:2},{t:"We can still improve a lot.",eff:1},{t:"Not good enough. We have to do better.",eff:-1}]},
+ {speaker:"Reporter",q:"What was the key moment in the match?",
+  a:[{t:"The team stuck together when it mattered.",eff:2},{t:"I tried to make the difference myself.",eff:1},{t:"A few decisions didn't go our way.",eff:0}]},
+ {speaker:"Sports Desk",q:"How is the dressing room mood right now?",
+  a:[{t:"Spirits are high, everyone is focused.",eff:2},{t:"We're staying professional.",eff:1},{t:"There's work to do on the training pitch.",eff:0}]},
+ {speaker:"Fan Media",q:"Any message for the fans after this game?",
+  a:[{t:"Thank you for the support — we play for you.",eff:2},{t:"We'll keep fighting every week.",eff:1},{t:"Results will come if we stay consistent.",eff:1}]},
+ {speaker:"Journalist",q:"How would you rate your own performance?",
+  a:[{t:"I gave everything I had out there.",eff:2},{t:"Solid, but I know I can do more.",eff:1},{t:"I expect more from myself.",eff:0}]},
+ {speaker:"Reporter",q:"What needs to improve going forward?",
+  a:[{t:"Our defensive shape in key moments.",eff:1},{t:"Clinical finishing in the final third.",eff:1},{t:"Just keep the same intensity.",eff:2}]},
+ {speaker:"Club Media",q:"How important was the manager's tactics today?",
+  a:[{t:"The plan worked perfectly.",eff:2},{t:"We adapted well during the game.",eff:1},{t:"We had to figure some things out ourselves.",eff:0}]},
+ {speaker:"Journalist",q:"Are you happy with your role in the team?",
+  a:[{t:"Yes — I'm contributing and enjoying it.",eff:2},{t:"I want more responsibility going forward.",eff:0},{t:"I'll keep working hard for my place.",eff:1}]},
+ {speaker:"Reporter",q:"How do you handle the pressure of big matches?",
+  a:[{t:"I thrive on it — it brings out my best.",eff:2},{t:"I stay focused on my job.",eff:1},{t:"It can be tough, but I'm learning.",eff:0}]},
+ {speaker:"Sports Desk",q:"What's the target for the rest of the season?",
+  a:[{t:"Push as high up the table as possible.",eff:2},{t:"Keep improving week by week.",eff:1},{t:"Win every game we can.",eff:1}]}
+];
+
+let pressState=null;
+
+function startPressConference(){
+ const gameEl=document.getElementById("game");
+ const pressEl=document.getElementById("press");
+ if(!pressEl){endWeek();return;}
+ if(gameEl){gameEl.classList.remove("active");gameEl.style.opacity="";}
+ pressEl.classList.add("active");
+ pressEl.style.opacity="1";
+ void pressEl.offsetWidth;
+
+ const shuffled=[...pressQuestions].sort(()=>Math.random()-0.5).slice(0,3);
+ pressState={questions:shuffled,index:0,totalEffect:0};
+ document.getElementById("pressSummary").classList.add("hidden");
+ document.getElementById("pressSummary").classList.remove("show");
+ document.getElementById("pressAnswers").innerHTML="";
+ document.getElementById("pressAnswers").classList.remove("show");
+ document.getElementById("pressQuestion").classList.remove("show");
+ document.getElementById("pressSpeaker").classList.remove("show");
+ setTimeout(()=>showPressQuestion(),400);
+}
+
+function showPressQuestion(){
+ if(!pressState||pressState.index>=pressState.questions.length){
+  endPressConference();
+  return;
+ }
+ const item=pressState.questions[pressState.index];
+ const qNum=pressState.index+1;
+ document.getElementById("pressProgress").textContent=`Question ${qNum} of 3`;
+ document.getElementById("pressTitle").textContent="Post-Match Interview";
+
+ // Reset elements
+ const speaker=document.getElementById("pressSpeaker");
+ const question=document.getElementById("pressQuestion");
+ const answers=document.getElementById("pressAnswers");
+ speaker.classList.remove("show");
+ question.classList.remove("show");
+ answers.classList.remove("show");
+ answers.innerHTML="";
+
+ // 1) Fade in speaker name
+ speaker.textContent=item.speaker+" asks:";
+ setTimeout(()=>speaker.classList.add("show"),100);
+
+ // 2) Fade in question after a beat
+ question.textContent='"'+item.q+'"';
+ setTimeout(()=>question.classList.add("show"),700);
+
+ // 3) After reading time, fade out question area slightly and show answers
+ setTimeout(()=>{
+  answers.innerHTML=item.a.map((ans,i)=>`<button onclick="answerPress(${i})">${ans.t}</button>`).join("");
+  answers.classList.add("show");
+ },2200);
+}
+
+function answerPress(ansIndex){
+ if(!pressState)return;
+ const item=pressState.questions[pressState.index];
+ const ans=item.a[ansIndex];
+ pressState.totalEffect+=ans.eff;
+ pressState.index++;
+
+ // Fade out current content
+ document.getElementById("pressSpeaker").classList.remove("show");
+ document.getElementById("pressQuestion").classList.remove("show");
+ document.getElementById("pressAnswers").classList.remove("show");
+
+ setTimeout(()=>{
+  if(pressState.index>=3) endPressConference();
+  else showPressQuestion();
+ },450);
+}
+
+function endPressConference(){
+ const effect=pressState?pressState.totalEffect:0;
+ p.confidence=Math.max(20,Math.min(100,p.confidence+Math.round(effect*0.6)));
+ p.morale=Math.min(100,(p.morale||75)+effect);
+ let mediaMsg="The media reaction is neutral.";
+ if(effect>=5)mediaMsg="The press loved your answers — positive headlines incoming.";
+ else if(effect>=3)mediaMsg="Solid answers. The media is reasonably happy.";
+ else if(effect<=0)mediaMsg="Your comments raised a few eyebrows in the press.";
+
+ document.getElementById("pressProgress").textContent="Interview Complete";
+ document.getElementById("pressTitle").textContent="Press Conference";
+ document.getElementById("pressSpeaker").classList.remove("show");
+ document.getElementById("pressQuestion").classList.remove("show");
+ document.getElementById("pressAnswers").classList.remove("show");
+ document.getElementById("pressAnswers").innerHTML="";
+
+ const summary=document.getElementById("pressSummary");
+ summary.classList.remove("hidden");
+ summary.innerHTML=`<p>${mediaMsg}</p><button onclick="finishPressAndContinue()">Continue Career</button>`;
+ setTimeout(()=>summary.classList.add("show"),200);
+ pressState=null;
+}
+
+function finishPressAndContinue(){
+ const pressEl=document.getElementById("press");
+ pressEl.style.opacity="0";
+ setTimeout(()=>{
+  pressEl.classList.remove("active");
+  document.getElementById("game").classList.add("active");
+  void document.getElementById("game").offsetWidth;
+  document.getElementById("game").style.opacity="1";
+  endWeek();
+ },350);
+}
+function resetMatchUI(){
+ match=null;
+ const setup=document.getElementById("matchSetup");
+ const area=document.getElementById("matchArea");
+ if(setup)setup.classList.remove("hidden");
+ if(area){
+  area.classList.add("hidden");
+  const log=document.getElementById("eventlog");
+  if(log)log.innerHTML="";
+  const choice=document.getElementById("matchChoice");
+  if(choice)choice.innerHTML="";
+  const score=document.getElementById("score");
+  if(score)score.textContent="0 - 0";
+  const minute=document.getElementById("minute");
+  if(minute)minute.textContent="1'";
+ }
+ setupMatch();
+}
+function endWeek(){
+ p.week++;
+ p.trainingsThisWeek=0;
+ if(p.week>10){endSeason();return}
+ maybeGenerateScoutOffer(false);
+ resetMatchUI();
+ showTab("home");
+}
+function setupMatch(){
+ if(!p)return;
+ const opp=opponent();
+ const setup=document.getElementById("matchSetup");
+ if(!setup)return;
+ setup.innerHTML=`
+  <div style="margin-bottom:16px">${matchupHTML(p.club,opp)}</div>
+  <p class="muted" style="text-align:center;margin-bottom:14px">League • Matchday ${p.week} of 10</p>
+  <div style="text-align:center"><button onclick="startMatch()">Play Match</button></div>`;
+}
+const awardNames={
+ boot:["Haaland","Mbappé","Kane","Salah","Vinicius","Lewandowski","Osimhen","Isak","Palmer","Gyokeres"],
+ glove:["Alisson","Courtois","Ederson","Donnarumma","Oblak","Raya","Neuer","Maignan","Sommer","Martinez"],
+ mid:["Rodri","Bellingham","De Bruyne","Pedri","Valverde","Rice","Wirtz","Musiala","Gündogan","Caicedo"],
+ def:["Van Dijk","Saliba","Dias","Upamecano","Araujo","Konate","Walker","James","Davies","Grimaldo"],
+ young:["Mainoo","Yamal","Bellingham","Wirtz","Musiala","Garnacho","Lewis","Barcola","Simons","Nusa"],
+ ballon:["Mbappé","Haaland","Bellingham","Vinicius","Rodri","Salah","Kane","Pedri","Wirtz","Foden"]
+};
+const awardClubs=["Real Madrid","Barcelona","Manchester City","Arsenal","Liverpool","Bayern Munich","Inter","PSG","Chelsea","Atletico Madrid"];
+
+function pickNpc(list){return list[Math.floor(Math.random()*list.length)]}
+
+function endSeason(){
+ if(!p.trophies)p.trophies=[];
+ const pos=leaguePos();
+ const wonLeague=pos===1;
+ const seasonNum=p.season;
+ const seasonGoals=p.goals;
+ const seasonAssists=p.assists;
+ const seasonApps=p.apps;
+ const seasonOvr=overall();
+ const avgRating=p.apps?p.ratingTotal/p.apps:6.5;
+ const seasonClub=p.club;
+ const seasonLeague=p.league;
+ const isGK=p.position==="GK";
+
+ if(wonLeague){
+  p.trophies.push({
+   name:seasonLeague+" Title",
+   season:seasonNum,
+   club:seasonClub,
+   league:seasonLeague,
+   year:2025+seasonNum
+  });
+  p.money+=20;
+  p.confidence=Math.min(100,p.confidence+10);
+ }
+ p.history.push({season:seasonNum,club:seasonClub,apps:seasonApps,goals:seasonGoals,assists:seasonAssists,ovr:seasonOvr,position:pos});
+
+ // Build awards (before resetting player season stats)
+ const awards=buildSeasonAwards({
+  season:seasonNum,goals:seasonGoals,assists:seasonAssists,apps:seasonApps,
+  ovr:seasonOvr,rating:avgRating,isGK,pos,wonLeague,
+  club:seasonClub,league:seasonLeague,name:p.name,position:p.position
+ });
+
+ // Reset for next season
+ p.season++;p.age++;p.week=1;p.apps=0;p.goals=0;p.assists=0;p.ratingTotal=0;
+ p.trainingsThisWeek=0;p.transferAppliedThisSeason=false;p.renegotiatedThisSeason=false;
+ Object.keys(p.stats).forEach(k=>{if(Math.random()<.7)p.stats[k]=Math.min(99,p.stats[k]+1)});
+
+ // Small chance of off-season scout interest
+ maybeGenerateScoutOffer(false);
+
+ initStandings();
+ resetMatchUI(); // clear last match so next season can play
+ startAwardsCeremony(seasonNum,seasonLeague,awards,wonLeague,pos);
+}
+
+function buildSeasonAwards(s){
+ const awards=[];
+ // Golden Boot
+ if(!s.isGK && s.goals>=8 && (s.goals>=12 || Math.random()<0.25+s.goals*0.03)){
+  awards.push({icon:"👟",label:"Golden Boot",winner:s.name,meta:s.goals+" goals · "+s.club,you:true});
+ }else{
+  const n=pickNpc(awardNames.boot),c=pickNpc(awardClubs);
+  const g=Math.max(s.goals+1,12+Math.floor(Math.random()*10));
+  awards.push({icon:"👟",label:"Golden Boot",winner:n,meta:g+" goals · "+c,you:false});
+ }
+ // Golden Glove
+ if(s.isGK && s.apps>=6 && s.rating>=7.0 && Math.random()<0.45){
+  awards.push({icon:"🧤",label:"Golden Glove",winner:s.name,meta:"Top keeper · "+s.club,you:true});
+ }else{
+  const n=pickNpc(awardNames.glove),c=pickNpc(awardClubs);
+  awards.push({icon:"🧤",label:"Golden Glove",winner:n,meta:"Most clean sheets · "+c,you:false});
+ }
+ // Playmaker / assists
+ if(!s.isGK && s.assists>=6 && Math.random()<0.3+s.assists*0.04){
+  awards.push({icon:"🎯",label:"Playmaker Award",winner:s.name,meta:s.assists+" assists · "+s.club,you:true});
+ }else{
+  const n=pickNpc(awardNames.mid),c=pickNpc(awardClubs);
+  awards.push({icon:"🎯",label:"Playmaker Award",winner:n,meta:(8+Math.floor(Math.random()*8))+" assists · "+c,you:false});
+ }
+ // Young Player (age <= 23 after season age increment hasn't happened yet in this function - age is pre-increment)
+ if(p.age<=23 && s.apps>=5 && s.rating>=7.0 && Math.random()<0.35){
+  awards.push({icon:"⭐",label:"Young Player of the Season",winner:s.name,meta:s.club+" · Age "+p.age,you:true});
+ }else{
+  const n=pickNpc(awardNames.young),c=pickNpc(awardClubs);
+  awards.push({icon:"⭐",label:"Young Player of the Season",winner:n,meta:c,you:false});
+ }
+ // Player of the Season (league)
+ if(s.apps>=7 && s.rating>=7.5 && (s.wonLeague||s.goals>=10||s.assists>=8) && Math.random()<0.28){
+  awards.push({icon:"🏅",label:s.league+" Player of the Season",winner:s.name,meta:s.club,you:true});
+ }else{
+  const n=pickNpc(awardNames.mid.concat(awardNames.boot)),c=pickNpc(leagueTeams().length?leagueTeams():awardClubs);
+  awards.push({icon:"🏅",label:s.league+" Player of the Season",winner:n,meta:c,you:false});
+ }
+ // Ballon d'Or style
+ let ballonChance=0.02;
+ if(s.wonLeague)ballonChance+=0.08;
+ if(s.goals>=15)ballonChance+=0.1;
+ if(s.ovr>=82)ballonChance+=0.08;
+ if(s.rating>=8)ballonChance+=0.06;
+ if(!s.isGK && Math.random()<ballonChance){
+  awards.push({icon:"🥇",label:"Ballon d'Or",winner:s.name,meta:"World's best · "+s.club,you:true});
+ }else{
+  const n=pickNpc(awardNames.ballon),c=pickNpc(awardClubs);
+  awards.push({icon:"🥇",label:"Ballon d'Or",winner:n,meta:"World's best · "+c,you:false});
+ }
+ // Team of the Season mention
+ if(s.apps>=6 && s.rating>=7.2 && Math.random()<0.4){
+  awards.push({icon:"📋",label:"Team of the Season",winner:s.name,meta:s.position+" · "+s.league,you:true});
+ }else{
+  awards.push({icon:"📋",label:"Team of the Season",winner:pickNpc(awardNames.def),meta:"Selected XI · "+s.league,you:false});
+ }
+
+ // Add personal award trophies to cabinet
+ awards.forEach(a=>{
+  if(a.you && a.label!=="Team of the Season"){
+   if(!p.trophies)p.trophies=[];
+   p.trophies.push({
+    name:a.label,
+    season:s.season,
+    club:s.club,
+    league:s.league,
+    year:2025+s.season
+   });
+   p.money+=8;
+  }
+ });
+
+ return awards;
+}
+
+function startAwardsCeremony(seasonNum,league,awards,wonLeague,pos){
+ document.getElementById("game").classList.remove("active");
+ const el=document.getElementById("awards");
+ el.classList.add("active");
+ el.style.opacity="1";
+ document.getElementById("awardsSubtitle").textContent="Season "+seasonNum+" · "+league;
+ document.getElementById("awardsTitle").textContent="Awards Ceremony";
+ const list=document.getElementById("awardsList");
+ const leagueNote=wonLeague
+  ?`<p style="text-align:center;color:var(--gold);font-weight:700;margin-bottom:16px">🏆 ${league} Champions!</p>`
+  :`<p class="muted" style="text-align:center;margin-bottom:16px">Final position: ${pos}${pos===1?"st":pos===2?"nd":pos===3?"rd":"th"}</p>`;
+ list.innerHTML=leagueNote+awards.map((a,i)=>`
+  <div class="award-row" id="awardRow${i}">
+   <div class="award-icon">${a.icon}</div>
+   <div class="award-body">
+    <div class="award-label">${a.label}</div>
+    <div class="award-winner ${a.you?"you":""}">${a.winner}${a.you?" (You)":""}</div>
+    <div class="award-meta">${a.meta}</div>
+   </div>
+  </div>`).join("");
+ // Stagger reveal
+ awards.forEach((_,i)=>{
+  setTimeout(()=>{
+   const row=document.getElementById("awardRow"+i);
+   if(row)row.classList.add("show");
+  },300+i*400);
+ });
+}
+
+function finishAwards(){
+ const el=document.getElementById("awards");
+ if(el)el.style.opacity="0";
+ setTimeout(()=>{
+  if(el)el.classList.remove("active");
+  const gameEl=document.getElementById("game");
+  if(gameEl){gameEl.classList.add("active");gameEl.style.opacity="1";}
+  resetMatchUI();
+  update();
+  showTab("home");
+  toast("New season underway. Good luck!");
+ },300);
+}
+function loadGame(){
+ try{
+  let s=localStorage.getItem("footballCareer");
+  if(!s){toast("No saved career found.");return}
+  p=JSON.parse(s);
+  if(p.trainingsThisWeek===undefined)p.trainingsThisWeek=0;
+  if(p.transferAppliedThisSeason===undefined)p.transferAppliedThisSeason=false;
+  if(p.renegotiatedThisSeason===undefined)p.renegotiatedThisSeason=false;
+  if(p.wage===undefined)p.wage=3;
+  if(p.contractYears===undefined)p.contractYears=2;
+  if(!p.league)p.league=clubLeagues[p.club]||"League One";
+  if(!p.standings)initStandings();
+  if(!p.trophies)p.trophies=[];
+  if(!p.scoutOffers)p.scoutOffers=[];
+  const titleEl=document.getElementById("title");
+  const createEl=document.getElementById("create");
+  const clubSelEl=document.getElementById("clubSelect");
+  const gameEl=document.getElementById("game");
+  if(titleEl)titleEl.classList.remove("active");
+  if(createEl)createEl.classList.remove("active");
+  if(clubSelEl)clubSelEl.classList.remove("active");
+  if(gameEl){gameEl.classList.add("active");gameEl.style.opacity="1";}
+  setupMatch();showTab("home");
+  toast("Career loaded!");
+ }catch(e){console.error(e);toast("Could not load save.");}
+}
+function saveGame(){
+ try{localStorage.setItem("footballCareer",JSON.stringify(p));toast("Game saved!");}
+ catch(e){console.error(e);toast("Could not save (storage blocked).");}
+}
+function toast(t){let x=document.getElementById("toast");if(!x)return;x.textContent=t;x.classList.remove("hidden");clearTimeout(toastTimer);toastTimer=setTimeout(()=>x.classList.add("hidden"),2600)}
+document.addEventListener("keydown",e=>{if(e.key==="s"&&e.ctrlKey){e.preventDefault();saveGame()}});
+
+const gameRoot=document.getElementById("game");
+if(gameRoot)gameRoot.insertAdjacentHTML("beforeend",`<div style="position:fixed;left:14px;bottom:14px;display:flex;gap:7px"><button class="secondary" onclick="saveGame()">Save</button><button class="secondary" onclick="loadGame()">Load</button></div>`);
+</script>
+</body>
+</html>
